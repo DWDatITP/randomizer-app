@@ -1,0 +1,23 @@
+<h1>Randomizer</h1>
+
+<p>Enter some text in the text area below, one item per line.</p>
+<p>Click the "randomize" button to get a random item from that list.</p>
+
+{{#if pickedItem}}
+<p>The selected item is:</p>
+<p><b>{{pickedItem}}</b></p>
+{{/if}}
+
+<form action='/randomize' method='post'>
+  <textarea name='randomItems' cols="80" rows="30">{{#if itemString}}{{itemString}}{{/if}}</textarea>
+
+  <br>
+
+  <button type='submit'>
+    {{#if pickedItem}}
+      Randomize again!
+    {{else}}
+      Randomize!
+    {{/if}}
+  </button>
+</form>
