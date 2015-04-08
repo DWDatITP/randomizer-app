@@ -26,16 +26,25 @@ app.post('/randomize', function(request, response){
     }
   });
 
-  itemString = items.join('\n');
 
   var length = items.length;
   var randomNumber = parseInt(Math.random() * length);
-  console.log('items',items);
-  console.log('randomNumber',randomNumber);
   var pickedItem = items[randomNumber];
-  console.log('pickedItem',pickedItem);
 
-  response.render('index', {itemString: itemString, pickedItem: pickedItem});
+  console.log('remove',request.body.remove);
+
+  // if we should remove the checked item
+  if (request.body.remove) {
+    var beforeItems = items.slice(0, randomNumber);
+    var afterItems  = items.slice(randomNumber + 1);
+
+    items = beforeItems.concat(afterItems);
+  }
+
+  itemString = items.join('\n');
+
+  response.render('index',
+                  {itemString: itemString, pickedItem: pickedItem});
 });
 
 app.get('/randomize', function(request, response){
